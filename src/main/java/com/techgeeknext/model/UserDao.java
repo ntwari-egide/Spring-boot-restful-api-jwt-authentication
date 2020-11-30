@@ -2,6 +2,7 @@ package com.techgeeknext.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -14,6 +15,13 @@ public class UserDao {
     @Column
     @JsonIgnore
     private String password;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "user-role",
+            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "id")}
+    )
+    private List<Role> roles;
 
     public String getUsername() {
         return username;
@@ -31,5 +39,12 @@ public class UserDao {
         this.password = password;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }
 

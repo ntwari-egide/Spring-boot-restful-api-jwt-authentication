@@ -9,4 +9,10 @@ public class EmployeeController {
     public String getEmployees() {
         return "Welcome!";
     }
+
+    // accessing by the admin only
+    @GetMapping("/admin/greetings")
+    public String getGreetings(){
+        return "Admin , Good morning";
+    }
 }
